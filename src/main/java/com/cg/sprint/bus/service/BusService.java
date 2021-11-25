@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.sprint.bus.exception.BusNotFoundException;
+import com.cg.sprint.bus.exception.LoginException;
 import com.cg.sprint.bus.model.Bus;
 import com.cg.sprint.bus.repository.BusRepository;
 
@@ -19,38 +20,56 @@ public class BusService implements IBusService{
 	
 	@Autowired
 	private BusRepository busRepository;
+	
+	@Autowired
+	private AdminService adminService;
 
 	@Override
 	public Bus addBus(Bus bus) {
-		LOG.info("BusService addBus");
-		return busRepository.save(bus);
+		if(adminService.adminIsLoggedIn == true) {
+			LOG.info("BusService addBus");
+			return busRepository.save(bus);
+		}
+		else {
+			throw new LoginException("Login first");
+		}
 	}
 
 	@Override
 	public Bus updateBus(Bus bus) {
-		LOG.info("BusService addBus");
-		if(busRepository.existsById(bus.getBusId())) {
-			LOG.info("Bus exists and will be updated");
-			return busRepository.save(bus);
+		if(adminService.adminIsLoggedIn == true) {
+			LOG.info("BusService addBus");
+			if(busRepository.existsById(bus.getBusId())) {
+				LOG.info("Bus exists and will be updated");
+				return busRepository.save(bus);
+			}
+			else {
+				LOG.info("Bus does not exist");
+				throw new BusNotFoundException("Bus with " + bus.getBusId() + "as Id does not exist");
+			}
 		}
-		else {
-			LOG.info("Bus does not exist");
-			throw new BusNotFoundException("Bus with " + bus.getBusId() + "as Id does not exist");
+		else{
+			throw new LoginException("Login first");
 		}
 	}
 
 	@Override
 	public Bus deleteBus(int busId) {
-		LOG.info("BusService addBus");
-		Optional<Bus> busOpt = busRepository.findById(busId);
-		if(busOpt.isPresent()) {
-			LOG.info("Bus will be deleted");
-			busRepository.deleteById(busId);
-			return busOpt.get();
+		if(adminService.adminIsLoggedIn == true) {
+			LOG.info("BusService addBus");
+			Optional<Bus> busOpt = busRepository.findById(busId);
+			if(busOpt.isPresent()) {
+				LOG.info("Bus will be deleted");
+				busRepository.deleteById(busId);
+				return busOpt.get();
+			}
+			else {
+				LOG.info("Bus does not exist");
+				throw new BusNotFoundException("Bus with " + busId + " does not exist");
+			}
 		}
 		else {
-			LOG.info("Bus does not exist");
-			throw new BusNotFoundException("Bus with " + busId + " does not exist");
+			throw new LoginException("Login first");
 		}
 	}
 
