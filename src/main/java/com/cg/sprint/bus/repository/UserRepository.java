@@ -10,6 +10,6 @@ import com.cg.sprint.bus.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	public abstract Optional<User> findByUserName(String userName);
+	public abstract User findByUserName(String userName);
 	public abstract Optional<User> findByPassword(String password);
 }

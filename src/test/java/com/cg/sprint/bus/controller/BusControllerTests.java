@@ -23,8 +23,24 @@ public class BusControllerTests {
 	}
 	
 	@Test
-	public void deleteBus() {
+	public void testViewBus1() {
+		HttpStatus expected = busController.viewBus(2).getStatusCode();
+		HttpStatus actual = HttpStatus.OK;
+		
+		assertEquals(expected, actual);	
+	}
+	
+	@Test
+	public void testdeleteBus() {
 		HttpStatus expected = busController.viewBus(1).getStatusCode();
+		HttpStatus actual = HttpStatus.OK;
+		
+		assertEquals(expected, actual);	
+	}
+	
+	@Test
+	public void testdeleteBus2() {
+		HttpStatus expected = busController.viewBus(2).getStatusCode();
 		HttpStatus actual = HttpStatus.OK;
 		
 		assertEquals(expected, actual);	

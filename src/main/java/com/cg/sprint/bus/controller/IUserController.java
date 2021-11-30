@@ -9,7 +9,7 @@ import com.cg.sprint.bus.model.User;
 
 public interface IUserController {
 
-	public ResponseEntity<Optional<User>> loginUser(User user);
+	public ResponseEntity<User> loginUser(User user);
 	public ResponseEntity<User> addUser(User user);
 	public ResponseEntity<User> updateUser(User user);
 	public ResponseEntity<User> deleteUser(int userId);

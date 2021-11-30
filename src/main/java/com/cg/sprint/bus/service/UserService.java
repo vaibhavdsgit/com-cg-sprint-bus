@@ -24,14 +24,14 @@ public class UserService implements IUserService{
 	private UserRepository userRepository;
 	
 	@Override
-	public Optional<User> loginUser(User user) {
+	public User loginUser(User user) {
 		LOG.info("Service loginUser");
-		Optional<User> optUser1 = userRepository.findByUserName(user.getUserName());
-		Optional<User> optUser2 = userRepository.findByPassword(user.getPassword());
-		if(optUser1 != null && optUser2 != null) {
+//		Optional<User> optUser1 = userRepository.findByUserName(user.getUserName());
+//		Optional<User> optUser2 = userRepository.findByPassword(user.getPassword());
+		if(userRepository.findByUserName(user.getUserName()) != null) {
 			LOG.info("Successfully logged in");
 			isLoggedIn = true;
-			return optUser1;
+			return userRepository.findByUserName(user.getUserName());
 		}
 		else {		
 			LOG.info("User not found");
@@ -42,6 +42,7 @@ public class UserService implements IUserService{
 	@Override
 	public User addUser(User user) {
 		LOG.info("addService addUser");
+		System.out.println(userRepository.findByUserName(user.getUserName()));
 		if(userRepository.findByUserName(user.getUserName()) != null) {
 			LOG.info("UserName already exists");
 			throw new UserAlreadyExistsException("User with " + user.getUserName() + " as username already exists");

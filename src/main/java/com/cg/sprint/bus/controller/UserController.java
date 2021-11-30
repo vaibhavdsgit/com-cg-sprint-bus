@@ -29,12 +29,12 @@ public class UserController implements IUserController{
 	
 	@Override
 	@PostMapping("/loginUser")
-	public ResponseEntity<Optional<User>> loginUser(@RequestBody User user) {
+	public ResponseEntity<User> loginUser(@RequestBody User user) {
 		LOG.info("loginUser Controller");
-		Optional<User> u = userService.loginUser(user);
+		User u = userService.loginUser(user);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", "Login Successful");
-		ResponseEntity<Optional<User>> response = new ResponseEntity<Optional<User>>(u, headers, HttpStatus.OK);
+		ResponseEntity<User> response = new ResponseEntity<User>(u, headers, HttpStatus.OK);
 		return response;
 	}
 

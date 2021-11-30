@@ -52,15 +52,16 @@ public class FeedBackService implements IFeedBackService{
 	@Override
 	public FeedBack viewFeedBack(int feedBackId) {
 		LOG.info("FeedbackService viewFeedback");
+		System.out.println(feedBackRepository.existsById(feedBackId));
+		System.out.println(feedBackRepository.getById(feedBackId));
 		if(feedBackRepository.existsById(feedBackId)) {
 			LOG.info("Viewing Feedback");
 			return feedBackRepository.getById(feedBackId);
 		}
-//		else {
-//			LOG.info("User does not exist");
-//			throw new UserNotFoundException("Feedback with " + feedBackId + " does not exist");
-//		}
-		return null;
+		else {
+			return null;
+		}
+		
 	}
 
 	@Override

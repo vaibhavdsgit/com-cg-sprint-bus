@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +49,7 @@ public class FeedBackController implements IFeedBackController{
 	}
 
 	@Override
-	@PostMapping("/deleteFeedBack/{feedBackId}")
+	@DeleteMapping("/deleteFeedBack/{feedBackId}")
 	public ResponseEntity<FeedBack> deleteFeedBack(@PathVariable int feedBackId) {
 		LOG.info("deleteFeedback Controller");
 		FeedBack f = feedBackService.deleteFeedBack(feedBackId);
@@ -58,7 +60,7 @@ public class FeedBackController implements IFeedBackController{
 	}
 
 	@Override
-	@PostMapping("/viewFeedBack/{feedBackId}")
+	@GetMapping("/viewFeedBack/{feedBackId}")
 	public ResponseEntity<FeedBack> viewFeedBack(@PathVariable int feedBackId) {
 		LOG.info("updateFeedback Controller");
 		FeedBack f = feedBackService.viewFeedBack(feedBackId);
@@ -69,6 +71,7 @@ public class FeedBackController implements IFeedBackController{
 	}
 
 	@Override
+	@GetMapping("/viewAllFeedBack")
 	public List<FeedBack> viewAllFeedBack() {
 		LOG.info("updateFeedback Controller");
 		return feedBackService.viewAllFeedBack();
