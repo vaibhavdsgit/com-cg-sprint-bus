@@ -1,5 +1,7 @@
 package com.cg.sprint.bus.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,9 +39,14 @@ public class User {
 	@Column
 	String email;
 	
-	@OneToOne(cascade = {CascadeType.MERGE})
-	@JoinColumn(name = "reservationId")
-	Reservation reservation;
+//	@OneToOne(cascade = {CascadeType.MERGE})
+//	@JoinColumn(name = "reservationId")
+//	Reservation reservation;
+	
+	
+	@OneToMany(targetEntity = Reservation.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "UR_fk", referencedColumnName = "userId")
+	private List<Reservation> reservation;
 	
 	public User() {
 		super();
@@ -57,7 +65,7 @@ public class User {
 	}
 
 	public User(int userId, String userName, String password, String firstName, String lastName, long contact,
-			String email, Reservation reservation) {
+			String email, List<Reservation> reservation) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -125,11 +133,11 @@ public class User {
 		this.email = email;
 	}
 
-	public Reservation getReservation() {
+	public List<Reservation> getReservation() {
 		return reservation;
 	}
 
-	public void setReservation(Reservation reservation) {
+	public void setReservation(List<Reservation> reservation) {
 		this.reservation = reservation;
 	}
 
@@ -139,6 +147,8 @@ public class User {
 				+ firstName + ", lastName=" + lastName + ", contact=" + contact + ", email=" + email + ", reservation="
 				+ reservation + "]";
 	}
+
+	
 	
 	
 }
