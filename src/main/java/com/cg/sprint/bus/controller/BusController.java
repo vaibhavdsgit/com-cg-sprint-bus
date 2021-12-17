@@ -50,7 +50,7 @@ public class BusController implements IBusController{
 
 	@Override
 	@DeleteMapping("/deleteBus/{busId}")
-	public ResponseEntity<Bus> deletebus(@PathVariable(name = "busId") int busId) {
+	public ResponseEntity<Bus> deleteBus(@PathVariable(name = "busId") int busId) {
 		LOG.info("deleteBus Controller");
 		Bus b = busService.deleteBus(busId);
 		HttpHeaders headers = new HttpHeaders();

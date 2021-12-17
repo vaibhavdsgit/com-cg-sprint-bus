@@ -10,7 +10,7 @@ public interface IBusController {
 
 	public ResponseEntity<Bus> addBus(Bus bus);
 	public ResponseEntity<Bus> updateBus(Bus bus);
-	public ResponseEntity<Bus> deletebus(int busId);
+	public ResponseEntity<Bus> deleteBus(int busId);
 	public ResponseEntity<Bus> viewBus(int busId);
 	public List<Bus> viewBusByType(String busType);
 	public List<Bus> viewAllBus();
